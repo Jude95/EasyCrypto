@@ -1,0 +1,58 @@
+buildscript {
+
+    ext {
+        easycrypto_groupId = 'me.jinuo'
+        easycrypto_version = '1.0.0'
+    }
+
+
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    }
+}
+
+plugins {
+    id 'java'
+}
+apply plugin: 'com.bmuschko.nexus'
+
+group easycrypto_groupId
+version easycrypto_version
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven{ url "http://maven.jinuo.com/repository/jinuo/"}
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.61'
+}
+
+
+modifyPom {
+    project {
+        //required below
+        groupId = easycrypto_groupId
+        artifactId = 'easy-crypto'
+        version = easycrypto_version
+        packaging = 'jar'
+        //optional below
+        description = ''
+    }
+}
+
+extraArchive {
+    sources = true
+}
+
+nexus {
+    sign = false
+    repositoryUrl = 'http://maven.jinuo.me/repository/jinuo/'
+    snapshotRepositoryUrl = 'http://maven.jinuo.me/repository/jinuo-snapshot/'
+}
