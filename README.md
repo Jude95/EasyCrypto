@@ -32,3 +32,11 @@ implementation 'me.jinuo:easy-crypto:1.0.0'
                 .targetAndSign("abcdefg".getBytes(StandardCharsets.UTF_8), signature)
                 .verify();
 ```
+
+# Generate KeyPair
+```
+openssl
+
+genrsa -out private_key.pem 2048
+rsa -in private_key.pem -pubout -out public_key.pem
+```

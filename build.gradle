@@ -2,7 +2,7 @@ buildscript {
 
     ext {
         easycrypto_groupId = 'me.jinuo'
-        easycrypto_version = '1.0.0'
+        easycrypto_version = '1.0.1'
     }
 
 

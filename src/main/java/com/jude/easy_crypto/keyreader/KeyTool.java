@@ -13,6 +13,7 @@ import org.bouncycastle.util.io.pem.PemReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.security.*;
 import java.security.spec.X509EncodedKeySpec;
 
@@ -69,6 +70,18 @@ public class KeyTool {
 
     public static PublicKey readPublicKeyFromPem(String filepath) throws IOException {
         return readPublicKeyFromPem(new FileReader(filepath));
+    }
+
+    public static PrivateKey readPrivateKeyFromPemString(String content) throws IOException {
+        return readPrivateKeyFromPem(new StringReader(content));
+    }
+
+    public static PrivateKey readPrivateKeyFromPemString(String content, String password) throws IOException {
+        return readPrivateKeyFromPem(new StringReader(content), password);
+    }
+
+    public static PublicKey readPublicKeyFromPemString(String content) throws IOException {
+        return readPublicKeyFromPem(new StringReader(content));
     }
 
 }

@@ -22,6 +22,12 @@ public class KeyReader<T> {
                 } else {
                     return (T) KeyTool.readPrivateKeyFromPem(keyInfo.file, keyInfo.password);
                 }
+            } else if (keyInfo.content != null){
+                if (keyInfo.password == null) {
+                    return (T) KeyTool.readPrivateKeyFromPemString(keyInfo.content);
+                } else {
+                    return (T) KeyTool.readPrivateKeyFromPemString(keyInfo.content, keyInfo.password);
+                }
             } else {
                 throw new IOException("key file not found");
             }
@@ -32,7 +38,13 @@ public class KeyReader<T> {
                 } else {
                     throw new IOException("public key with password is unsupported");
                 }
-            } else {
+            } else if (keyInfo.content != null){
+                if (keyInfo.password == null) {
+                    return (T) KeyTool.readPublicKeyFromPemString(keyInfo.content);
+                } else {
+                    throw new IOException("public key with password is unsupported");
+                }
+            }  else {
                 throw new IOException("key file not found");
             }
         }
