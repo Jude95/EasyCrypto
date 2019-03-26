@@ -3,7 +3,7 @@
 
 # Dependency
 ```java
-implementation 'me.jinuo:easy-crypto:1.0.0'
+implementation 'com.jude:easy-crypto:1.0.0'
 ```
 
 # Usage
@@ -35,8 +35,8 @@ implementation 'me.jinuo:easy-crypto:1.0.0'
 
 # Generate KeyPair
 ```
-openssl
 
-genrsa -out private_key.pem 2048
-rsa -in private_key.pem -pubout -out public_key.pem
+
+openssl genrsa -out private_key.pem 1024
+openssl rsa -in private_key.pem -pubout -out public_key.pem
 ```

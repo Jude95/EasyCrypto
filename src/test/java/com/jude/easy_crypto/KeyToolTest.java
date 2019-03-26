@@ -1,5 +1,6 @@
 package com.jude.easy_crypto;
 
+import org.bouncycastle.util.encoders.Base64;
 import org.bouncycastle.util.encoders.UTF8;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class KeyToolTest {
     public void readPrivateKeyFromPem() throws IOException {
         PrivateKey privateKey = EasyCrypto.readKey()
                 .privateKey()
-                .pemFile(ResourceLoader.getResource("pem_nopwd/private.pem").getPath())
+                .pemFile(ResourceLoader.getResource("pem_nopwd/private_key.pem").getPath())
                 .noPassword()
                 .read();
 
@@ -29,19 +30,19 @@ public class KeyToolTest {
         PrivateKey privateKey = EasyCrypto.readKey()
                 .privateKey()
                 .pemString("-----BEGIN RSA PRIVATE KEY-----\n" +
-                        "MIICXQIBAAKBgQDAFpNgqO/A1y9F5KNNd+ZcLgBLzYNRWVcUAo07SciiIGeoAFTX\n" +
-                        "Hx5Z0mpeix7XLInby57LPDmp4d+zw4Pulo4IphywM2gE85m7Hhw8OBaRMDR4kM+U\n" +
-                        "lCJzA5ZC4AktgG9PN59H1UtfJj8ji/ixXPRfv+t4DCABSsmNBURuS4ygDwIDAQAB\n" +
-                        "AoGBALvhGPNxKVe/4VAGiqeJ/7nnkIiUEb4umRpMSKFV0LSq51gOQu1KVaBbS4j/\n" +
-                        "oAGsYYanCcEVPf1onSoxsMhbX71pDN4DmyMiolond9AU62+a+L6he+YcFxhx6iaL\n" +
-                        "oSj0wVts2UiucvJJIZ87b3xlHLrhzyvDj+zy9EJxBjPb+7gpAkEA7bD39fjqNNag\n" +
-                        "bIpai6gyf/GXibSYiLj6h/dWz5trujoDS4vI1xZXlIf7iHOxga9SPJfP10uguBMe\n" +
-                        "AiUmLjYdhQJBAM7iXDYY017nSLWxBKjPjvNiy1M5IW8BiVkmGE+skkskIorrLG+0\n" +
-                        "nQBF+jrSRi/oXPMQ9L4eQS3a3tzP5DYmAYMCQEeoqLjhWEqhwi+27mFYThFAlr0P\n" +
-                        "U0U072L6cJOaebnlL4UhGWWu+Kxw6qZSqts8LgDSi/iOdl/Ic62V4ZLhAbkCQE6d\n" +
-                        "pfzIoknGCdNBWUvs052ZRTpy00mjg9XkrAhaw5zaNmYjx9cLAz4/WT9Q+GrsGaYk\n" +
-                        "I1y7knkiWt3+AfKxrpECQQClOTGZIOa7ZbPpN1b680pQT/K1Sjm/NZLA/TdqPLbM\n" +
-                        "CSiaxBCbVK28Vyv0BWOrsEHYACL3vi4cK0wVpMQuOhfD\n" +
+                        "MIICWwIBAAKBgQDlNT1aqd0aCTXRA6pD2suPaBUz/rzEkwfi7BcazMWQjzAGkqLT\n" +
+                        "CZsgOPm9gSgA7jk+aQAMdlrn2QnprNL9sJs0A232C9UzO5d9pcJYs0YNJEQ9mOFw\n" +
+                        "Qpnz4llmdcYC36psyNqK/wqCWp+XNrG723Fi0PiJLJXraMCHUb0VyNnclQIDAQAB\n" +
+                        "AoGAHWxpNONLY9U82FkNGWrT6NPmrOcNmnp5b7L5AFK7JeSLuLxINKkuBcPqo14a\n" +
+                        "IYxzQsS94durrcmZ0SqDZ1ethJCdwImPnII5WFSr7N6ya7hT39daSVElqHaXDjhV\n" +
+                        "5CtYQ1U2l6LTkgY2//YYR2oY0Ed2lW2buWU5ntpZUmJAsJ0CQQD1NsuCu6JLC6Jz\n" +
+                        "Q1lBxZTm3S5mBkcSEsW/MPCEl2zHO9Clad2J5Cmq54s7Ma0jC4Vix7XHbPZqqo5O\n" +
+                        "ZJG3POHXAkEA70o1yOe4n8q8fmitRA/163Bdk70Lz/Jkz5V+c0sdCpLcXBn1j9Rv\n" +
+                        "k1u4NU7mJZnbWlMfZrUNbbrOBIb1dee/cwJAaH/egKsnwaWGqGpGKnJiP3R45n+8\n" +
+                        "X+ZiIVVg2pCRieJiy2tvPuleHHgqbKKB71JkmLEVNZSo+tIObTgMpTMr5wJAFEdj\n" +
+                        "u3z3xoL16niQhn4bxzIknAqfX6YZKQZwSvEIqwa7KgsBJolIU2Kof8wJ8RHS5xq4\n" +
+                        "RIn/c1crcnLFhpJ3RQJAMJyRYQtOOUWpArzjhksw/0U3zyLeUSz8AZfsnBt6+vYZ\n" +
+                        "YfLiGVLpg2AsVPYxTSWsM4E46LLv8/JOomaeGq5Ugg==\n" +
                         "-----END RSA PRIVATE KEY-----\n")
                 .noPassword()
                 .read();
@@ -53,7 +54,7 @@ public class KeyToolTest {
     public void readPublicKeyFromPem() throws IOException {
         PublicKey publicKey  = EasyCrypto.readKey()
                 .publicKey()
-                .pemFile(ResourceLoader.getResource("pem_nopwd/public.pem").getPath())
+                .pemFile(ResourceLoader.getResource("pem_nopwd/public_key.pem").getPath())
                 .noPassword()
                 .read();
 
@@ -65,10 +66,10 @@ public class KeyToolTest {
         PublicKey publicKey  = EasyCrypto.readKey()
                 .publicKey()
                 .pemString("-----BEGIN PUBLIC KEY-----\n" +
-                        "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDAFpNgqO/A1y9F5KNNd+ZcLgBL\n" +
-                        "zYNRWVcUAo07SciiIGeoAFTXHx5Z0mpeix7XLInby57LPDmp4d+zw4Pulo4Iphyw\n" +
-                        "M2gE85m7Hhw8OBaRMDR4kM+UlCJzA5ZC4AktgG9PN59H1UtfJj8ji/ixXPRfv+t4\n" +
-                        "DCABSsmNBURuS4ygDwIDAQAB\n" +
+                        "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlNT1aqd0aCTXRA6pD2suPaBUz\n" +
+                        "/rzEkwfi7BcazMWQjzAGkqLTCZsgOPm9gSgA7jk+aQAMdlrn2QnprNL9sJs0A232\n" +
+                        "C9UzO5d9pcJYs0YNJEQ9mOFwQpnz4llmdcYC36psyNqK/wqCWp+XNrG723Fi0PiJ\n" +
+                        "LJXraMCHUb0VyNnclQIDAQAB\n" +
                         "-----END PUBLIC KEY-----\n")
                 .noPassword()
                 .read();
@@ -80,13 +81,13 @@ public class KeyToolTest {
     public void sign() throws Exception {
         PrivateKey privateKey = EasyCrypto.readKey()
                 .privateKey()
-                .pemFile(ResourceLoader.getResource("pem_nopwd/private.pem").getPath())
+                .pemFile(ResourceLoader.getResource("pem_nopwd/private_key.pem").getPath())
                 .noPassword()
                 .read();
 
         PublicKey publicKey  = EasyCrypto.readKey()
                 .publicKey()
-                .pemFile(ResourceLoader.getResource("pem_nopwd/public.pem").getPath())
+                .pemFile(ResourceLoader.getResource("pem_nopwd/public_key.pem").getPath())
                 .noPassword()
                 .read();
 
@@ -95,6 +96,8 @@ public class KeyToolTest {
                 .usePrivateKey(privateKey)
                 .target("abcdefg".getBytes(StandardCharsets.UTF_8))
                 .sign();
+
+        System.out.println(Base64.toBase64String(signature));
 
         boolean result = EasyCrypto.verify()
                 .algorithm("SHA256withRSA")

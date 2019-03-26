@@ -1,23 +1,23 @@
 buildscript {
 
     ext {
-        easycrypto_groupId = 'me.jinuo'
-        easycrypto_version = '1.0.1'
+        easycrypto_groupId = 'com.jude'
+        easycrypto_version = '1.0.0'
     }
 
 
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+        classpath 'com.novoda:bintray-release:0.9'
     }
 }
 
 plugins {
     id 'java'
 }
-apply plugin: 'com.bmuschko.nexus'
 
 group easycrypto_groupId
 version easycrypto_version
@@ -26,7 +26,7 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven{ url "http://maven.jinuo.com/repository/jinuo/"}
+    maven { url "http://maven.jinuo.com/repository/jinuo/" }
 }
 
 dependencies {
@@ -35,24 +35,19 @@ dependencies {
 }
 
 
-modifyPom {
-    project {
-        //required below
-        groupId = easycrypto_groupId
-        artifactId = 'easy-crypto'
-        version = easycrypto_version
-        packaging = 'jar'
-        //optional below
-        description = ''
-    }
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    userOrg = 'jude95'
+    groupId = easycrypto_groupId
+    artifactId = 'easy-crypto'
+    publishVersion = version
+    autoPublish = true
+    dryRun = false
+    desc = 'Crypto tool for java'
+    website = 'https://github.com/Jude95/EasyCrypto'
+
+    bintrayUser = bintrayUploadUser
+    bintrayKey = bintrayUploadKey
 }
 
-extraArchive {
-    sources = true
-}
-
-nexus {
-    sign = false
-    repositoryUrl = 'http://maven.jinuo.me/repository/jinuo/'
-    snapshotRepositoryUrl = 'http://maven.jinuo.me/repository/jinuo-snapshot/'
-}
